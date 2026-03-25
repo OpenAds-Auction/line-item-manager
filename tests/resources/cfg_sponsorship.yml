@@ -5,7 +5,7 @@
 # Bidder:
 #   bidder_code = bidder-code
 #   bidder_name = bidder-name
-#   hb_<keystr> = hb_<keystr>_<bidder-code> (20 char limit)
+#   oa_<keystr> = oa_<keystr>_<bidder-code> (20 char limit)
 # CPM:
 #   cpm = line item rate as cost-per-thousand impressions
 # Media:
@@ -45,7 +45,7 @@ creative: # at least one of the following types is required {video, banner}
   #       width: 640
   #     - height: 240
   #       width: 320
-  #   vast_xml_url: "https://prebid.adnxs.com/pbc/v1/cache?uuid=%%PATTERN:{{ hb_cache_id }}%%"
+  #   vast_xml_url: "https://openads.adsrvr.org/cache?uuid=%%PATTERN:{{ oa_cache_id }}%%"
   banner:
     sizes: # list
       - height: 20
@@ -56,15 +56,15 @@ creative: # at least one of the following types is required {video, banner}
         var ucTagData = {};
         ucTagData.adServerDomain = "";
         ucTagData.pubUrl = "%%PATTERN:url%%";
-        ucTagData.adId = "%%PATTERN:{{ hb_adid }}%%";
-        ucTagData.cacheHost = "%%PATTERN:{{ hb_cache_host }}%%";
-        ucTagData.cachePath = "%%PATTERN:{{ hb_cache_path }}%%";
-        ucTagData.uuid = "%%PATTERN:{{ hb_cache_id }}%%";
-        ucTagData.mediaType = "%%PATTERN:{{ hb_format }}%%";
-        ucTagData.env = "%%PATTERN:hb_env%%";
-        ucTagData.size = "%%PATTERN:{{ hb_size }}%%";
-        ucTagData.hbPb = "%%PATTERN:{{ hb_pb }}%%";
-        ucTagData.mobileResize = "hb_size:%%PATTERN:{{ hb_size }}%%";
+        ucTagData.adId = "%%PATTERN:{{ oa_adid }}%%";
+        ucTagData.cacheHost = "%%PATTERN:{{ oa_cache_host }}%%";
+        ucTagData.cachePath = "%%PATTERN:{{ oa_cache_path }}%%";
+        ucTagData.uuid = "%%PATTERN:{{ oa_cache_id }}%%";
+        ucTagData.mediaType = "%%PATTERN:{{ oa_format }}%%";
+        ucTagData.env = "%%PATTERN:oa_env%%";
+        ucTagData.size = "%%PATTERN:{{ oa_size }}%%";
+        ucTagData.hbPb = "%%PATTERN:{{ oa_pb }}%%";
+        ucTagData.mobileResize = "oa_size:%%PATTERN:{{ oa_size }}%%";
         try {
           ucTag.renderAd(document, ucTagData);
         } catch (e) {

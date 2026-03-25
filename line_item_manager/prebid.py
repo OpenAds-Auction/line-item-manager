@@ -4,7 +4,7 @@ from typing import  Any, Dict, Optional
 from urllib import request
 import ssl
 
-from .utils import load_package_file
+from .utils import load_package_file, package_filename
 
 SETTINGS: dict = load_package_file('settings.yml')['prebid']
 BIDDERS: dict = SETTINGS['bidders']
@@ -18,15 +18,22 @@ class Prebid:
 
     @property
     def bidders(self) -> Dict[str, Any]:
-        """Read remote bidders CSV metadata file.
+        """Read bidders CSV metadata file.
 
         Returns:
           A dict keyed by bidder code
         """
         if self._bidders is None:
-            context = ssl.create_default_context(cafile=certifi.where())
-            reader = csv.DictReader([l.decode('utf-8') for l in request.urlopen(
-                BIDDERS['data'], context=context).readlines()], skipinitialspace=True)
+            data_src = BIDDERS['data']
+            if data_src.startswith('http://') or data_src.startswith('https://'):
+                context = ssl.create_default_context(cafile=certifi.where())
+                reader = csv.DictReader([l.decode('utf-8') for l in request.urlopen(
+                    data_src, context=context).readlines()], skipinitialspace=True)
+            else:
+                with open(package_filename(data_src)) as fp:
+                    reader = csv.DictReader(fp, skipinitialspace=True)
+                    self._bidders = {row['bidder-code']:row for row in reader if row['bidder-code']}
+                return self._bidders
             # Filter out rows with empty bidder-code
             self._bidders = {row['bidder-code']:row for row in reader if row['bidder-code']}
         return self._bidders

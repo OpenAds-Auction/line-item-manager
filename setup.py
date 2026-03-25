@@ -25,6 +25,7 @@ requirements = [
 package_data = [
     'conf.d/*.yml',
     'conf.d/*.yaml',
+    'conf.d/*.csv',
 ]
 
 release_requirements = [

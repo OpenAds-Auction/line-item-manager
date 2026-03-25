@@ -5,7 +5,7 @@
 # Bidder:
 #   bidder_code = bidder-code
 #   bidder_name = bidder-name
-#   hb_<keystr> = hb_<keystr>_<bidder-code> (20 char limit)
+#   oa_<keystr> = oa_<keystr>_<bidder-code> (20 char limit)
 # CPM:
 #   cpm = line item rate as cost-per-thousand impressions
 # Media:
@@ -35,7 +35,7 @@ publisher:
 bidder_key_map:
   pubmatic:
     bad: "my_targeting_key"
-    hb_cache_id: "my_cache_id"
+    oa_cache_id: "my_cache_id"
 #   <bidder_code_2>: <bidder_targeting_key_2>
 ###############################################################################
 # Advertiser (required)
@@ -55,7 +55,7 @@ creative: # at least one of the following types is required {video, banner}
         width: 640
       - height: 240
         width: 320
-    vast_xml_url: "https://prebid.adnxs.com/pbc/v1/cache?uuid=%%PATTERN:{{ hb_cache_id }}%%"
+    vast_xml_url: "https://openads.adsrvr.org/cache?uuid=%%PATTERN:{{ oa_cache_id }}%%"
   # banner:
   #   sizes: # list
   #     - height: 480
