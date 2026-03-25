@@ -30,7 +30,7 @@ def test_bidders(cli_config):
       ['InteractiveOffers', 'Index Exchange']
     assert config.cpm_names() == ['0.10', '0.20', '0.30', '0.80', '1.30']
     assert [PrebidBidder(c_).targeting_key for c_ in config.bidder_codes()] == \
-      ['hb_pb_interactiveOff', 'hb_pb_ix']
+      ['oa_pb_interactiveOff', 'oa_pb_ix']
     assert config.custom_targeting_key_values() == \
       [{'name': 'country', 'values': {'CAN', 'US'}, 'operator': 'IS', 'reportableType': 'OFF'}]
     assert config.template_src() == open(package_filename('line_item_template.yml')).read()
@@ -40,7 +40,7 @@ def test_bidders(cli_config):
 @pytest.mark.command(f'create {CONFIG_FILE} -k {KEY_FILE} --single-order')
 def test_single_order(cli_config):
     assert [PrebidBidder(c_, single_order=config.cli['single_order']).targeting_key \
-            for c_ in config.bidder_codes()] == ['hb_pb']
+            for c_ in config.bidder_codes()] == ['oa_pb']
     assert config.user['order']['appliedTeamIds'] == [12345678, 23456789]
 
 def test_fmt_bidder_key():

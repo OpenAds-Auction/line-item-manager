@@ -20,18 +20,17 @@ WORKDIR ${APP_DIR}
 RUN pip3 install --upgrade pip setuptools
 RUN pip3 install wheel
 
-# App dependencies
+# App dependencies - copy everything first, then install
 COPY setup.py ${APP_DIR}/
 COPY setup.cfg ${APP_DIR}/
 COPY MANIFEST.in ${APP_DIR}/
-
-RUN pip install --upgrade pip
-RUN pip3 install -e .[release,test]
-
 COPY line_item_manager/ ${APP_DIR}/line_item_manager
 COPY tests/ ${APP_DIR}/tests/
 COPY Makefile ${APP_DIR}/
 COPY *.rst ${APP_DIR}/
+
+RUN pip install --upgrade pip setuptools
+RUN pip3 install .[release,test]
 
 RUN chown -R ${USER}: ${APP_DIR}
 USER ${USER}

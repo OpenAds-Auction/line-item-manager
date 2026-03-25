@@ -6,9 +6,18 @@ import pytest
 from line_item_manager import cli
 from line_item_manager.config import config
 from line_item_manager.gam_operations import client as gam_client
+from line_item_manager.prebid import prebid
 
 def pytest_configure():
     pytest.start_time = datetime(2020, 1, 2, 8, 9, 10)
+    # Inject test bidder codes that aren't in the bundled bidders.csv
+    for code, name in [
+        ("interactiveOffers", "InteractiveOffers"),
+        ("ix", "Index Exchange"),
+        ("pubmatic", "PubMatic"),
+    ]:
+        if code not in prebid.bidders:
+            prebid.bidders[code] = {"bidder-code": code, "bidder-name": name}
 
 @pytest.fixture
 def cli_config(request):

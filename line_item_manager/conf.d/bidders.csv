@@ -1,0 +1,2 @@
+bidder-code,bidder-name,banner,video,native,schain,dchain,tcfeu,coppa,gpp,usp,safeframes,deals,client-adapter,server-adapter,user-ids,mobile-apps,floors,fpd,prebid-member,ortb-blocking,multiformat,aliasOf,adapterFilename
+thetradedesk,The Trade Desk,yes,yes,no,yes,no,yes,yes,check with bidder,yes,check with bidder,yes,yes,yes,all,yes,yes,no,yes,yes,"will-not-bid",,ttdBidAdapter

@@ -1,5 +1,14 @@
 # line_item_manager configuration
-# version: '0.2.14'
+###############################################################################
+# OpenAds Line Item Manager - All Bids (Send All Bids) Example Config
+#
+# Usage:
+#   line_item_manager create examples/config_all_bids.yml \
+#     -k gam_creds.json -b thetradedesk --dry-run -v
+#
+# This config uses per-bidder mode (-b flag), which creates separate orders
+# and line items for each bidder. Targeting keys include the bidder code
+# suffix (e.g., oa_pb_thetradedesk).
 ###############################################################################
 # Templating uses jinja2 rendering (see https://palletsprojects.com/p/jinja/)
 # The following key word types are supported:
@@ -16,33 +25,21 @@
 # Order:
 #   cpm_max = order maximum cpm
 #   cpm_min = order minimum cpm
-#
-# See the bundled bidders.csv for referencing bidder names and codes.
 ###############################################################################
-# Publisher (optional)
-# This can be specified on the command line like this:
+# Publisher (required)
+# This can also be specified on the command line like this:
 #   --network-code <code>
 #   --network-name <name>
 #
-# publisher:
-#   network_code: 1234
-#   network_name: "Video Publisher"
-###############################################################################
-# Bidder Targeting Key Override Map (optional, used with custom solutions):
-#   If provided override the default bidder keys and use these custom key
-#   values specified per bidder_code.
-#
-# bidder_key_map:
-#   <bidder_code_1>:
-#     oa_pb: <custom_key>
-#     oa_cache_id: <custom_key>
-#   <bidder_code_2>:
-#     oa_pb: <custom_key>
-#     oa_cache_id: <custom_key>
+# REPLACE with your GAM network details
+publisher:
+  network_code: 12345678
+  network_name: "Your Network Name"
 ###############################################################################
 # Advertiser (required)
 # Allowed Templating Key Words: Bidder
 ###############################################################################
+# Replace as you see fit
 advertiser: # at least one of the following is required {id, name}, id is checked first
   name: "OpenAds"
   # id: 1234567890
@@ -51,9 +48,7 @@ advertiser: # at least one of the following is required {id, name}, id is checke
 # Creatives (required)
 # Allowed Templating Key Words: Bidder, Media, Misc
 #
-# For additional explanations on settings see the following:
-#   banner: https://docs.prebid.org/adops/step-by-step.html
-#   video: https://docs.prebid.org/adops/setting-up-prebid-video-in-dfp.html
+# Update sizes to match your ad units.
 ###############################################################################
 creative: # at least one of the following types is required {video, banner}
   name: "OpenAds {{ bidder_name }}-{{ media_type }}"
@@ -61,20 +56,41 @@ creative: # at least one of the following types is required {video, banner}
     # safe_frame: False # optional: defaults to True
     # size_override: False # optional: defaults to True with a 1x1 creative
     sizes: # list
-      - height: 480
-        width: 640
+      - height: 250
+        width: 300
+      - height: 90
+        width: 728
+      - height: 50
+        width: 320
     snippet: |
-      <script src = "https://..."></script>
-        <script>
-          ...
-        </script>
+      <script src = "https://openads-cdn.adsrvr.org/openads-universal-creative/build/latest/%%PATTERN:{{ oa_format }}%%.js"></script>
+      <script>
+        var ucTagData = {};
+        ucTagData.adServerDomain = "";
+        ucTagData.pubUrl = "%%PATTERN:url%%";
+        ucTagData.adId = "%%PATTERN:{{ oa_adid }}%%";
+        ucTagData.cacheHost = "%%PATTERN:{{ oa_cache_host }}%%";
+        ucTagData.cachePath = "%%PATTERN:{{ oa_cache_path }}%%";
+        ucTagData.uuid = "%%PATTERN:{{ oa_cache_id }}%%";
+        ucTagData.mediaType = "%%PATTERN:{{ oa_format }}%%";
+        ucTagData.env = "%%PATTERN:oa_env%%";
+        ucTagData.size = "%%PATTERN:{{ oa_size }}%%";
+        ucTagData.hbPb = "%%PATTERN:{{ oa_pb }}%%";
+        ucTagData.mobileResize = "%%PATTERN:{{ oa_size }}%%";
+        ucTagData.requestAllAssets = true;
+        ucTagData.clickUrlUnesc = "%%CLICK_URL_UNESC%%";
+
+        try {
+          ucTag.renderAd(document, ucTagData);
+        } catch (e) {
+          console.log(e);
+        }
+      </script>
   video:
     # size_override: True with a 1x1 creative # optional: defaults to False
     sizes: # list
       - height: 480
         width: 640
-      - height: 240
-        width: 320
     vast_xml_url: "https://openads.adsrvr.org/cache?uuid=%%PATTERN:{{ oa_uuid }}%%"
     # max_duration: 15000 # optional: defaults to 30000, see settings.yml
     # duration: 15000 # optional: defaults to value of max_duration above
@@ -118,21 +134,16 @@ line_item:
 # Note: A Key-Value of 'bidder_targeting_key' with all CPM values is created
 # by default.
 ###############################################################################
-targeting:
-  # bidder: # object (optional)
-    # reportableType: "ON" # optional, defaults to "OFF", choices: "ON", "OFF", "CUSTOM_DIMENSION"
-  custom: # list (optional)
-    - name: "country"
-      # operator: "IS_NOT" # optional: defaults to "IS"
-      values:
-        - "US"
-        - "CAN"
-      # reportableType: "ON" # optional, defaults to "OFF", choices: "ON", "OFF", "CUSTOM_DIMENSION"
-    - name: "site"
-      # operator: "IS_NOT" # optional: defaults to "IS"
-      values:
-        - "somesite"
-      # reportableType: "ON" # optional, defaults to "OFF", choices: "ON", "OFF", "CUSTOM_DIMENSION"
+# targeting:
+#   bidder: # object (optional)
+#     reportableType: "ON" # optional, defaults to "OFF", choices: "ON", "OFF", "CUSTOM_DIMENSION"
+#   custom: # list (optional)
+#     - name: "country"
+#       # operator: "IS_NOT" # optional: defaults to "IS"
+#       values:
+#         - "US"
+#         - "CAN"
+#       # reportableType: "ON" # optional, defaults to "OFF", choices: "ON", "OFF", "CUSTOM_DIMENSION"
 #   placement_names: # list of names (optional)
 #     - "placement name 1"
 #     - "placement name 2"

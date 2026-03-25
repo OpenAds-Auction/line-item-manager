@@ -27,21 +27,21 @@ prebid:
     data: https://docs.prebid.org/dev-docs/bidder-data.csv
     key_char_limit: 20
     keys:
-      - "hb_pb"
-      - "hb_bidder"
-      - "hb_adid"
-      - "hb_size"
-      - "hb_source"
-      - "hb_format"
-      - "hb_cache_host"
-      - "hb_cache_id"
-      - "hb_uuid"
-      - "hb_cache_path"
-      - "hb_deal"
+      - "oa_pb"
+      - "oa_bidder"
+      - "oa_adid"
+      - "oa_size"
+      - "oa_source"
+      - "oa_format"
+      - "oa_cache_host"
+      - "oa_cache_id"
+      - "oa_uuid"
+      - "oa_cache_path"
+      - "oa_deal"
     single_order:
-      code: "hb"
+      code: "oa"
       name: "Top Bid"
-    targeting_key: "hb_pb"
+    targeting_key: "oa_pb"
   creative:
     size_override:
       height: 1

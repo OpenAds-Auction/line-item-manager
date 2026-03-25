@@ -24,7 +24,7 @@ SVC_IDS = dict(
         dump(dict(name="country")): 7101,
         dump(dict(customTargetingKeyId=7101, name="US")): 7301,
         dump(dict(customTargetingKeyId=7101, name="CAN")): 7302,
-        dump(dict(name="hb_pb_interactiveOff")): 7201,
+        dump(dict(name="oa_pb_interactiveOff")): 7201,
         dump(dict(customTargetingKeyId=7201, name="1.25")): 7401,
         dump(dict(customTargetingKeyId=7201, name="1.50")): 7402,
     },
@@ -44,7 +44,7 @@ SINGLE_ORDER_SVC_IDS = dict(
         dump(dict(name="country")): 7101,
         dump(dict(customTargetingKeyId=7101, name="US")): 7301,
         dump(dict(customTargetingKeyId=7101, name="CAN")): 7302,
-        dump(dict(name="hb_pb")): 7501,
+        dump(dict(name="oa_pb")): 7501,
         dump(dict(customTargetingKeyId=7501, name="1.25")): 7601,
         dump(dict(customTargetingKeyId=7501, name="1.50")): 7602,
     },
@@ -54,7 +54,7 @@ MISSING_RESOURCE_SVC_IDS = dict(
     CustomTargetingService={
         dump(dict(name="country")): 7101,
         dump(dict(customTargetingKeyId=7101, name="US")): 7301,
-        dump(dict(name="hb_pb")): 7501,
+        dump(dict(name="oa_pb")): 7501,
         dump(dict(customTargetingKeyId=7501, name="1.25")): 7601,
         dump(dict(customTargetingKeyId=7501, name="1.50")): 7602,
     },
@@ -67,14 +67,14 @@ SINGLE_ORDER_VIDEO_SVC_IDS = dict(
             advertiserId=1001,
             size={'height': 480, 'width': 640},
             vastXmlUrl= \
-            'https://prebid.adnxs.com/pbc/v1/cache?uuid=%%PATTERN:hb_cache_id%%',
+            'https://openads.adsrvr.org/cache?uuid=%%PATTERN:oa_cache_id%%',
         )): 4001,
         dump(dict(
             name="Prebid Top Bid-video",
             advertiserId=1001,
             size={'height': 240, 'width': 320},
             vastXmlUrl= \
-            'https://prebid.adnxs.com/pbc/v1/cache?uuid=%%PATTERN:hb_cache_id%%',
+            'https://openads.adsrvr.org/cache?uuid=%%PATTERN:oa_cache_id%%',
         )): 4002,
     },
     OrderService={
@@ -103,14 +103,14 @@ BIDDER_VIDEO_SVC_IDS = dict(
             advertiserId=1001,
             size={'height': 480, 'width': 640},
             vastXmlUrl= \
-            'https://prebid.adnxs.com/pbc/v1/cache?uuid=%%PATTERN:hb_cache_id_interact%%',
+            'https://openads.adsrvr.org/cache?uuid=%%PATTERN:oa_cache_id_interact%%',
         )): 4001,
         dump(dict(
             name="Prebid InteractiveOffers-video",
             advertiserId=1001,
             size={'height': 240, 'width': 320},
             vastXmlUrl= \
-            'https://prebid.adnxs.com/pbc/v1/cache?uuid=%%PATTERN:hb_cache_id_interact%%',
+            'https://openads.adsrvr.org/cache?uuid=%%PATTERN:oa_cache_id_interact%%',
         )): 4002,
     },
     OrderService={
@@ -139,14 +139,14 @@ BIDDER_VIDEO_SVC_IDS_SIZE_OVERRIDE = dict(
             advertiserId=1001,
             size={'height': 1, 'width': 1},
             vastXmlUrl= \
-            'https://prebid.adnxs.com/pbc/v1/cache?uuid=%%PATTERN:hb_cache_id_interact%%',
+            'https://openads.adsrvr.org/cache?uuid=%%PATTERN:oa_cache_id_interact%%',
         )): 4001,
         dump(dict(
             name="Prebid InteractiveOffers-video Copy:2",
             advertiserId=1001,
             size={'height': 1, 'width': 1},
             vastXmlUrl= \
-            'https://prebid.adnxs.com/pbc/v1/cache?uuid=%%PATTERN:hb_cache_id_interact%%',
+            'https://openads.adsrvr.org/cache?uuid=%%PATTERN:oa_cache_id_interact%%',
         )): 4002,
     },
 )
@@ -223,14 +223,14 @@ BIDDER_VIDEO_BIDDER_KEY_MAP_SVC_IDS = dict(
             advertiserId=1001,
             size={'height': 480, 'width': 640},
             vastXmlUrl= \
-            'https://prebid.adnxs.com/pbc/v1/cache?uuid=%%PATTERN:io_custom_cache_id%%',
+            'https://openads.adsrvr.org/cache?uuid=%%PATTERN:io_custom_cache_id%%',
         )): 4001,
         dump(dict(
             name="Prebid InteractiveOffers-video",
             advertiserId=1001,
             size={'height': 240, 'width': 320},
             vastXmlUrl= \
-            'https://prebid.adnxs.com/pbc/v1/cache?uuid=%%PATTERN:io_custom_cache_id%%',
+            'https://openads.adsrvr.org/cache?uuid=%%PATTERN:io_custom_cache_id%%',
         )): 4002,
     },
 )

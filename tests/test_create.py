@@ -30,8 +30,6 @@ CONFIG_FILE = 'tests/resources/cfg.yml'
 KEY_FILE = 'tests/resources/gam_creds.json'
 CUSTOM_TARGETING = {7101: ['US']}
 CONFIG_BIDDER = "interactiveOffers"
-if CONFIG_BIDDER not in prebid.bidders:
-    prebid.bidders[CONFIG_BIDDER] = {"bidder-code": CONFIG_BIDDER, "bidder-name": "InteractiveOffers"}
 
 EXPECTED_LICA = \
   [[{'creativeId': 4001, 'id': 9001, 'lineItemId': 8001},
@@ -44,7 +42,7 @@ VIDEO_CREATIVE = {
     'name': 'Prebid InteractiveOffers-video',
     'advertiserId': 1001,
     'size': {'height': 480, 'width': 640},
-    'vastXmlUrl': 'https://prebid.adnxs.com/pbc/v1/cache?uuid=%%PATTERN:hb_cache_id_interact%%',
+    'vastXmlUrl': 'https://openads.adsrvr.org/cache?uuid=%%PATTERN:oa_cache_id_interact%%',
     'vastRedirectType': 'LINEAR',
     'duration': 30000
     }
@@ -361,7 +359,7 @@ def test_video_one_bidder_invalid_targeting_key(monkeypatch, cli_config):
 
     with pytest.raises(ResourceNotActive) as e_:
         gam.create_line_items()
-    assert "'hb_pb_interactiveOff' is not active" in str(e_)
+    assert "'oa_pb_interactiveOff' is not active" in str(e_)
 
 @pytest.mark.command(f'create tests/resources/cfg_video_bidder_key_map.yml -k {KEY_FILE} -b {CONFIG_BIDDER}')
 def test_video_one_bidder_key_map(monkeypatch, cli_config):
